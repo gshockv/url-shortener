@@ -1,0 +1,49 @@
+server:
+  address: ${SERVER_ADDRESS:0.0.0.0}
+  port: ${PORT:8080}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  application:
+    name: url-shortener
+
+  profiles:
+    active: dev
+
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://host.docker.internal:5432/url_shortener}
+    username: ${DATASOURCE_USERNAME:admin}
+    password: ${DATASOURCE_PASSWORD:admin}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    location: classpath:db/migration
+
+  data:
+    redis:
+      host: url-shortener-redis
+      port: 6379
+
+  threads:
+    virtual:
+      enabled: true
+
+gg:
+  jte:
+    development-mode: true
+
+# app specific properties
+app:
+  cache:
+    redis:
+      ttl-minutes: 10
