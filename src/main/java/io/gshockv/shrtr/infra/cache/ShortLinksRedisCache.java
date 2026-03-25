@@ -30,6 +30,7 @@ public class ShortLinksRedisCache implements ShortLinksCache {
 
   @Override
   public void removeCachedUrl(String shortCode) {
+    log.info("Removing code: {} from Redis cache", shortCode);
     redisTemplate.delete(shortCode);
   }
 }

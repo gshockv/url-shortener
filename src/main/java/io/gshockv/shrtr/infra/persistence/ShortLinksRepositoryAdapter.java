@@ -7,6 +7,7 @@ import io.gshockv.shrtr.infra.persistence.repo.ShortLinkDataRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class ShortLinksRepositoryAdapter implements ShortLinksRepository {
   private final ShortLinkDataRepository dataRepository;
 
   @Override
+  @Transactional
   public ShortLink createShortLink(String link) {
 
     var linkEntity = new ShortLinkEntity();
@@ -27,6 +29,7 @@ public class ShortLinksRepositoryAdapter implements ShortLinksRepository {
   }
 
   @Override
+  @Transactional
   public void saveShortLink(ShortLink shortLink) {
     var linkEntity = toEntity(shortLink);
 
@@ -34,15 +37,29 @@ public class ShortLinksRepositoryAdapter implements ShortLinksRepository {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public String getOriginalUrlById(Integer id) {
     return dataRepository.getOriginalUrlById(id);
   }
 
   @Override
+  @Transactional(readOnly = true)
+  public String getShortCodeById(Integer id) {
+    return dataRepository.getShortCodeById(id);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
   public List<ShortLink> findAllShortLinks() {
-    return dataRepository.findAll().stream()
+    return dataRepository.findAllByOrderByCreatedAtDesc().stream()
       .map(this::toDomain)
       .toList();
+  }
+
+  @Override
+  @Transactional
+  public void deleteShortLink(Integer id) {
+    dataRepository.deleteById(id);
   }
 
   private ShortLink toDomain(final ShortLinkEntity entity) {

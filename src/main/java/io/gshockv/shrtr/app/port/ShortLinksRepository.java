@@ -8,6 +8,7 @@ public interface ShortLinksRepository {
   ShortLink createShortLink(String link);
   void saveShortLink(ShortLink shortLink);
   String getOriginalUrlById(Integer id);
-
+  String getShortCodeById(Integer id);
   List<ShortLink> findAllShortLinks();
+  void deleteShortLink(Integer id);
 }

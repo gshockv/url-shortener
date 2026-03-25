@@ -22,19 +22,7 @@ pageContent = @`
 
       <tbody>
         @for(ShortLinkResponse link : links)
-          <tr class="hover:bg-base-300">
-            <td>${link.getId()}</td>
-            <td>
-              <a href="${link.getShortUrl()}" target="_blank" class="link">
-                ${link.getShortUrl()}
-              </a>
-            </td>
-            <td>${link.getOriginalUrl()}</td>
-            <td>0</td>
-            <td>
-              <button class="btn btn-outline btn-xs btn-error">Delete</button>
-            </td>
-          </tr>
+          @template.components.shortLinkTableRow(link = link)
         @endfor
       </tbody>
     </table>

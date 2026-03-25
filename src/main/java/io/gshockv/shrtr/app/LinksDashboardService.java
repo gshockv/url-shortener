@@ -1,5 +1,6 @@
 package io.gshockv.shrtr.app;
 
+import io.gshockv.shrtr.app.port.ShortLinksCache;
 import io.gshockv.shrtr.app.port.ShortLinksRepository;
 import io.gshockv.shrtr.domain.ShortLink;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class LinksDashboardService {
+  private final ShortLinksCache linksCache;
   private final ShortLinksRepository shortLinksRepository;
 
   public List<ShortLink> findAllShortLinks() {
@@ -18,5 +20,13 @@ public class LinksDashboardService {
     log.info("Found {} saved links", links.size());
 
     return links;
+  }
+
+  public void deleteShortLink(Integer linkId) {
+    String shortCode = shortLinksRepository.getShortCodeById(linkId);
+    if (shortCode != null) {
+      linksCache.removeCachedUrl(shortCode);
+    }
+    shortLinksRepository.deleteShortLink(linkId);
   }
 }

@@ -25,7 +25,8 @@ public class AppConfig {
   }
 
   @Bean
-  public LinksDashboardService linksDashboardService(ShortLinksRepository shortLinksRepository) {
-    return new LinksDashboardService(shortLinksRepository);
+  public LinksDashboardService linksDashboardService(ShortLinksCache linksCache,
+                                                     ShortLinksRepository shortLinksRepository) {
+    return new LinksDashboardService(linksCache, shortLinksRepository);
   }
 }

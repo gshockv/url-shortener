@@ -1,0 +1,24 @@
+@import io.gshockv.shrtr.infra.web.dto.ShortLinkResponse
+
+@param ShortLinkResponse link
+
+<tr class="hover:bg-base-300">
+  <td>${link.getId()}</td>
+  <td>
+    <a href="${link.getShortUrl()}" target="_blank" class="link">
+      ${link.getShortUrl()}
+    </a>
+  </td>
+  <td>${link.getOriginalUrl()}</td>
+  <td>0</td>
+  <td>
+    <button
+      class="btn btn-outline btn-xs btn-error"
+      hx-delete="/delete-short-link/${link.getId()}"
+      hx-target="closest tr"
+      hx-swap="outerHTML swap:0.2s"
+    >
+      Delete
+    </button>
+  </td>
+</tr>
