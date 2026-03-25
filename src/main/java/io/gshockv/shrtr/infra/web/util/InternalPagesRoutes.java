@@ -9,4 +9,6 @@ public final class InternalPagesRoutes {
 
   public static final String SHORTEN_LINK_COMPONENT = "components/shortenLink";
   public static final String SHORTEN_LINK_ERROR_COMPONENT = "components/shortenLinkError";
+
+  public static final String LINKS_TABLE_COMPONENT = "components/shortLinksTable";
 }

@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 @Builder
 public class ShortLink {
   private Integer id;
-  private String fullUrl;
+  private String originalUrl;
+  private String shortCode;
   private String shortUrl;
   private LocalDateTime createdAt;
 }

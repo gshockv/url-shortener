@@ -17,11 +17,11 @@ public class ShortLinkEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(name = "full_url", nullable = false)
-  private String fullUrl;
+  @Column(name = "original_url", nullable = false)
+  private String originalUrl;
 
-  @Column(name = "short_url", unique = true)
-  private String shortUrl;
+  @Column(name = "short_code", unique = true)
+  private String shortCode;
 
   @CreatedDate
   @Column(name = "created_at", nullable = false, updatable = false)

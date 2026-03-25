@@ -1,6 +1,6 @@
-@import io.gshockv.shrtr.infra.web.dto.ShortLinkResponse
+@import io.gshockv.shrtr.domain.ShortLink
 
-@param ShortLinkResponse link
+@param ShortLink link
 
 <tr class="hover:bg-base-300">
   <td>${link.getId()}</td>

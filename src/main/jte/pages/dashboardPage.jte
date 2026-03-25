@@ -1,31 +1,23 @@
-@import java.util.List
-@import io.gshockv.shrtr.infra.web.dto.ShortLinkResponse
+@import io.gshockv.shrtr.domain.ShortLinkPage
+@import io.gshockv.shrtr.domain.ShortLink
 
-@param List<ShortLinkResponse> links
+@param ShortLinkPage<ShortLink> page
 
 @template.layouts.pageLayout(
 headerRightContent = @`
 `,
 pageContent = @`
+  <div class="min-h-screen flex flex-col">
 
-  <div class="overflow-x-auto m-2 rounded-box border border-base-300 bg-base-100">
-    <table class="table table-zebra">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Short URL</th>
-          <th>Original URL</th>
-          <th>Hits Count</th>
-          <th></th>
-        </tr>
-      </thead>
+    <div
+      id="tableContainer"
+      hx-get="/links/table?page=${page.getPage()}"
+      hx-trigger="load"
+      hx-target="#tableContainer"
+      hx-swap="innerHTML"
+    >
+      Loading...
+    </div>
 
-      <tbody>
-        @for(ShortLinkResponse link : links)
-          @template.components.shortLinkTableRow(link = link)
-        @endfor
-      </tbody>
-    </table>
   </div>
-
 `)

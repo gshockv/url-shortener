@@ -2,11 +2,16 @@ package io.gshockv.shrtr.app;
 
 import io.gshockv.shrtr.app.port.ShortLinksCache;
 import io.gshockv.shrtr.app.port.ShortLinksRepository;
+import io.gshockv.shrtr.app.port.ShortUrlGenerator;
 import io.gshockv.shrtr.domain.ShortLink;
+import io.gshockv.shrtr.domain.ShortLinkPage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -14,12 +19,20 @@ public class LinksDashboardService {
   private final ShortLinksCache linksCache;
   private final ShortLinksRepository shortLinksRepository;
 
-  public List<ShortLink> findAllShortLinks() {
-    List<ShortLink> links = shortLinksRepository.findAllShortLinks();
+  public ShortLinkPage<ShortLink> getPagedShortLinks(int page, ShortUrlGenerator generator) {
+    ShortLinkPage<ShortLink> dataPage = shortLinksRepository.getPagedShortLinks(page, ShortLinkPage.PAGE_SIZE);
 
-    log.info("Found {} saved links", links.size());
+    List<ShortLink> list = dataPage.getItems().stream()
+      .map(link -> ShortLink.builder()
+        .id(link.getId())
+        .originalUrl(link.getOriginalUrl())
+        .shortCode(link.getShortCode())
+        .shortUrl(generator.generate(link.getShortCode()))
+        .createdAt(link.getCreatedAt())
+        .build())
+      .toList();
 
-    return links;
+    return ShortLinkPage.of(list, dataPage.getPage(), dataPage.getPagesCount());
   }
 
   public void deleteShortLink(Integer linkId) {
