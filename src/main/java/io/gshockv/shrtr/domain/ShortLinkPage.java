@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShortLinkPage<T> {
-  public static final int PAGE_SIZE = 11;
+  public static final int PAGE_SIZE = 12;
 
    private List<T> items;
    private int page;
