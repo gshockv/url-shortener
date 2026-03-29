@@ -10,7 +10,6 @@
     </a>
   </td>
   <td>${link.getOriginalUrl()}</td>
-  <td>0</td>
   <td>
     <button
       class="btn btn-outline btn-xs btn-error"

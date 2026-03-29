@@ -10,7 +10,6 @@
       <th>ID</th>
       <th>Short URL</th>
       <th>Original URL</th>
-      <th>Hits Count</th>
       <th></th>
     </tr>
     </thead>

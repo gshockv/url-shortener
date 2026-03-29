@@ -1,7 +1,7 @@
 @param gg.jte.Content content
 
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="bumblebee">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
